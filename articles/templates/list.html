@@ -7,7 +7,7 @@
     <body>
         <a href="{% url 'create' %}">Write!</a>
         {% for article in articles %}
-            <h1>{{ article.title }}</h1>
+            <h1><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h1>
             <h3> {{ article.author }}</h3>
             <br>
         {% endfor %}

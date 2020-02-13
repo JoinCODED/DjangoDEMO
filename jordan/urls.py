@@ -23,4 +23,6 @@ urlpatterns = [
     path('article/list/', views.article_list, name='list'),
     path('article/detail/<int:article_id>/', views.article_detail, name='detail'),
     path('article/create/', views.article_create, name='create'),
+    path('article/update/<int:article_id>/', views.article_update, name='update'),
+    path('article/delete/<int:article_id>/', views.article_delete, name='delete'),
 ]

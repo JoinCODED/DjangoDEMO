@@ -9,5 +9,15 @@
         <h3>Author: {{ article.author }}</h3>
         <p>{{ article.content }}</p>
         <p>{{ article.date }}</p>
-    </body>
+        <a href="{% url 'update' article.id %}">
+          <button type="button" name="button">
+            Update
+          </button>
+        </a>
+        <br>
+        <a href="{% url 'delete' article.id %}">
+          <button type="button" name="button">
+            Delete
+          </button>
+        </a>
 </html>
