@@ -5,6 +5,7 @@
         <title>Article List</title>
     </head>
     <body>
+        <a href="{% url 'create' %}">Write!</a>
         {% for article in articles %}
             <h1>{{ article.title }}</h1>
             <h3> {{ article.author }}</h3>
