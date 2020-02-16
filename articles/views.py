@@ -4,7 +4,7 @@ from .forms import ArticleForm
 
 def index(request):
     context = {
-        "msg": "Hello, Noobs!",
+        "msg": "Hello, World!",
     }
     return render(request, 'home.html', context)
 
@@ -28,7 +28,7 @@ def article_create(request):
     form = ArticleForm()
     if request.method == "POST":
         print(request.POST)
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("list")
@@ -42,7 +42,7 @@ def article_update(request, article_id):
     article = Article.objects.get(id=article_id)
     form = ArticleForm(instance=article)
     if request.method == "POST":
-        form = ArticleForm(request.POST, instance=article)
+        form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
             form.save()
             return redirect("list")

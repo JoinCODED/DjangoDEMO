@@ -1,23 +1,26 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Article Detail</title>
-    </head>
-    <body>
-        <h1>{{ article.title }}</h1>
-        <h3>Author: {{ article.author }}</h3>
-        <p>{{ article.content }}</p>
-        <p>{{ article.date }}</p>
-        <a href="{% url 'update' article.id %}">
-          <button type="button" name="button">
-            Update
-          </button>
-        </a>
-        <br>
-        <a href="{% url 'delete' article.id %}">
-          <button type="button" name="button">
-            Delete
-          </button>
-        </a>
-</html>
+{% extends "base.html" %}
+
+{% block title %}
+Article Detail
+{% endblock %}
+
+{% block content %}
+<h1>{{ article.title }}</h1>
+<h3>Author: {{ article.author }}</h3>
+{% if article.image %}
+  <img src="{{ article.image.url }}" >
+{% endif %}
+<p>{{ article.content }}</p>
+<p>{{ article.date }}</p>
+<a href="{% url 'update' article.id %}">
+  <button type="button" name="button">
+    Update
+  </button>
+</a>
+
+<a href="{% url 'delete' article.id %}">
+  <button type="button" name="button">
+    Delete
+  </button>
+</a>
+{% endblock %}

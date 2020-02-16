@@ -1,15 +1,20 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Article List</title>
-    </head>
-    <body>
-        <a href="{% url 'create' %}">Write!</a>
-        {% for article in articles %}
-            <h1><a href="{% url 'detail' article.id %}">{{ article.title }}</a></h1>
-            <h3> {{ article.author }}</h3>
-            <br>
-        {% endfor %}
-    </body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Article List
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  {% for article in articles %}
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <a href="{% url 'detail' article.id %}">{{ article.title }}</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
