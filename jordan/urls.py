@@ -29,6 +29,10 @@ urlpatterns = [
     path('article/create/', views.article_create, name='create'),
     path('article/update/<int:article_id>/', views.article_update, name='update'),
     path('article/delete/<int:article_id>/', views.article_delete, name='delete'),
+
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
 ]
 
 urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

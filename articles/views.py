@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Article
-from .forms import ArticleForm
+from .forms import ArticleForm, RegisterForm, LoginForm
+from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
 
 def index(request):
     context = {
@@ -57,3 +59,44 @@ def article_delete(request, article_id):
     article = Article.objects.get(id=article_id)
     article.delete()
     return redirect("list")
+
+def register(request):
+    form = RegisterForm()
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user_obj = form.save(commit=False)
+            user_obj.set_password(user_obj.password)
+            user_obj.save()
+            login(request, user_obj)
+            return redirect("list")
+    context = {
+        "form": RegisterForm,
+    }
+    return render(request, 'register.html', context)
+
+def user_login(request):
+    form = LoginForm()
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            my_username = form.cleaned_data['username']
+            my_password = form.cleaned_data['password']
+            user_obj = authenticate(
+                username=my_username,
+                password=my_password
+            )
+            if user_obj is not None:
+                login(request, user_obj)
+                messages.success(request, 'YAY')
+                return redirect('list')
+            messages.warning(request, 'You shall not pass')
+    context = {
+        "form":form,
+    }
+    return render(request, 'login.html', context)
+
+def user_logout(request):
+    logout(request)
+    messages.warning(request, "We're so sad to see you go :(")
+    return redirect("login")
