@@ -11,6 +11,10 @@ def index(request):
     return render(request, 'home.html', context)
 
 
+def profile(request):
+    return render(request, "profile.html")
+
+
 def article_list(request):
     context = {
         "articles": Article.objects.all(),
@@ -29,10 +33,11 @@ def article_detail(request, article_id):
 def article_create(request):
     form = ArticleForm()
     if request.method == "POST":
-        print(request.POST)
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            article = form.save(commit=False)
+            article.author = request.user
+            article.save()
             return redirect("list")
     context = {
         "form": form
